@@ -68,8 +68,8 @@ export default function Navbar() {
           gap: '0.25rem',
         }}>
           {[
+            { label: 'Home', to: '/' },
             { label: 'Events', to: '/events' },
-            { label: 'Schedule', to: '/schedule' },
             { label: 'Register', to: '/register' },
             { label: 'Team', to: '/team' },
           ].map(item => (
@@ -159,6 +159,7 @@ export default function Navbar() {
           gap: '0.25rem',
         }}>
           {[
+            { label: 'Home', to: '/' },
             { label: 'Events', to: '/events' },
             { label: 'Register', to: '/register' },
           ].map(item => (

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CountdownTimer from '../components/CountdownTimer'
+import HeroParticles from '../components/HeroParticles'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -226,72 +227,13 @@ export default function Home() {
           textTransform: 'uppercase',
         }}>
           <span style={{ width: '8px', height: '8px', background: '#FFD600', display: 'inline-block' }} />
-          [NEW] // APRIL 16 2026 · VASAVI COLLEGE
+          VASAVI COLLEGE OF ENGINEERING(A) DEPARTMENT OF IT PRESENTS
         </div>
 
-        {/* Main Heading */}
-        <h1 style={{
-          fontFamily: 'var(--font-display)',
-          fontWeight: 700,
-          fontSize: 'clamp(3.5rem, 10vw, 8rem)',
-          lineHeight: 1.0,
-          letterSpacing: '-0.02em',
-          textTransform: 'uppercase',
-          color: '#F5F5F0',
-          marginBottom: '0',
-        }}>
-          UNLEASH THE<br />FUTURE OF
-        </h1>
-        <h1 style={{
-          fontFamily: 'var(--font-display)',
-          fontWeight: 700,
-          fontSize: 'clamp(3.5rem, 10vw, 8rem)',
-          lineHeight: 1.05,
-          letterSpacing: '-0.02em',
-          textTransform: 'uppercase',
-          color: '#FFD600',
-          marginTop: '0.1em',
-          marginBottom: '2.5rem',
-        }}>
-          INFORMATION TECHNOLOGY
-          <span style={{ opacity: cursorBlink ? 1 : 0, transition: 'opacity 0.1s', marginLeft: '4px' }}>|</span>
-        </h1>
+        {/* Floating Particles Text */}
+        <HeroParticles />
 
-        {/* Subtitle */}
-        <p style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: 'clamp(0.75rem, 1.5vw, 0.9rem)',
-          color: '#888',
-          letterSpacing: '0.08em',
-          maxWidth: '620px',
-          lineHeight: 1.8,
-          marginBottom: '3rem',
-          textTransform: 'uppercase',
-        }}>
-          THE PREMIER ANNUAL IT SYMPOSIUM BY VASAVI COLLEGE OF ENGINEERING.<br />
-          FROM CODE TO DEPLOYMENT — ONE DAY, INFINITE POSSIBILITIES.
-        </p>
 
-        {/* CTA Buttons */}
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '2.5rem' }}>
-          <Link to="/events" className="btn-primary">
-            EXPLORE EVENTS
-          </Link>
-          <Link to="/register" className="btn-outline">
-            REGISTER NOW &gt;
-          </Link>
-        </div>
-
-        {/* Sub-info strip */}
-        <p style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.7rem',
-          color: '#555',
-          letterSpacing: '0.15em',
-          textTransform: 'uppercase',
-        }}>
-          FREE PARTICIPATION // APRIL 16, 2026 // HYDERABAD, INDIA
-        </p>
       </section>
 
       {/* ══════════════════════════════════════════
