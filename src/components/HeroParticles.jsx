@@ -8,10 +8,6 @@ const HeroParticles = () => {
 
   const [showText, setShowText] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  
-  // Dev Tuning State
-  const [tuneX, setTuneX] = useState(2);
-  const [tuneY, setTuneY] = useState(12);
 
   useEffect(() => {
     let renderer, scene, camera, mesh;
@@ -46,14 +42,22 @@ const HeroParticles = () => {
       const rect = h1Ref.current.getBoundingClientRect();
       const computedStyle = window.getComputedStyle(h1Ref.current);
       const exactFontSize = parseFloat(computedStyle.fontSize);
+      const fontFam = computedStyle.fontFamily; // Usually: "Space Grotesk", sans-serif
+
+      // CRITICAL: Force the browser to aggressively load this specific weight/family into the canvas context
+      // before taking our snapshot, otherwise iOS Safari/Mobile defaults to Arial and ruins the particle layout!
+      try {
+        await document.fonts.load(`900 ${exactFontSize}px ${fontFam}`);
+      } catch (e) {}
 
       // Center of the text
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
 
       // Convert mapping for orthographic space (origin is screen center)
-      const orthoX = cx - w / 2 + tuneX;
-      const orthoY = h / 2 - cy - tuneY;
+      // Small manual optical shift to account for the canvas 'middle' baseline bias
+      const orthoX = cx - w / 2;
+      const orthoY = h / 2 - cy - (exactFontSize * 0.15); // Mathematically robust vertical optical tune
 
       // 4. Draw to Canvas replicating the exact styling perfectly
       const canvas = document.createElement('canvas');
@@ -67,7 +71,7 @@ const HeroParticles = () => {
       ctx.scale(2, 2);
 
       ctx.fillStyle = 'black';
-      ctx.font = `900 ${exactFontSize}px "Space Grotesk", sans-serif`;
+      ctx.font = `900 ${exactFontSize}px ${fontFam}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       if (ctx.letterSpacing !== undefined) {
@@ -219,18 +223,6 @@ const HeroParticles = () => {
         canvasMountRef.current.removeChild(renderer.domElement);
       }
     };
-  }, [tuneX, tuneY]); // Re-run exact alignment engine on tune change
-
-  // Provide interactive dev tool listener
-  useEffect(() => {
-    const handleDevKeys = (e) => {
-      if (e.key === 'ArrowUp') setTuneY(prev => prev - 1);
-      if (e.key === 'ArrowDown') setTuneY(prev => prev + 1);
-      if (e.key === 'ArrowLeft') setTuneX(prev => prev - 1);
-      if (e.key === 'ArrowRight') setTuneX(prev => prev + 1);
-    };
-    window.addEventListener('keydown', handleDevKeys);
-    return () => window.removeEventListener('keydown', handleDevKeys);
   }, []);
 
   return (
@@ -243,17 +235,12 @@ const HeroParticles = () => {
           left: 0,
           width: '100vw',
           height: '100vh',
-          zIndex: 0, // Put behind navbar/components but over background
-          opacity: 1,
+          zIndex: 0, 
+          opacity: showText ? 0 : 1,
           transition: 'opacity 0.15s ease-in-out',
           pointerEvents: 'none'
         }}
       />
-
-      {/* Dev Tool Banner */}
-      <div style={{ position: 'fixed', top: 10, left: 10, zIndex: 9999, background: 'rgba(0,0,0,0.8)', color: '#FFD600', padding: '0.5rem 1rem', fontFamily: 'monospace', borderRadius: '4px' }}>
-        <strong>DEV TUNE:</strong> Use Arrow Keys to shift particles. (X: {tuneX}, Y: {tuneY})
-      </div>
 
       <div style={{ position: 'relative', width: '100%', height: '40vh', minHeight: '250px', marginTop: '-8vh' }}>
         <h1
@@ -270,9 +257,10 @@ const HeroParticles = () => {
             fontSize: isMobile ? 'clamp(2.5rem, 11.5vw, 8rem)' : 'clamp(3rem, 9vw, 8rem)',
             lineHeight: 1.05,
             letterSpacing: '-0.02em',
-            color: 'rgba(255, 214, 0, 0.5)', // Half transparency so you can see overlap
-            opacity: 1, 
+            color: '#FFD600',
+            opacity: showText ? 1 : 0, 
             transform: 'none',
+            transition: 'opacity 0.15s ease-in-out',
             pointerEvents: showText ? 'auto' : 'none',
             whiteSpace: 'pre-wrap',
             textAlign: 'center',
