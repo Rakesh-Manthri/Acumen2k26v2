@@ -55,9 +55,9 @@ const HeroParticles = () => {
       const cy = rect.top + rect.height / 2;
 
       // Convert mapping for orthographic space (origin is screen center)
-      // Small manual optical shift to account for the canvas 'middle' baseline bias
+      // Removing any manual optical shift entirely to rely completely on the pure mathematical mapping
       const orthoX = cx - w / 2;
-      const orthoY = h / 2 - cy - (exactFontSize * 0.15); // Mathematically robust vertical optical tune
+      const orthoY = h / 2 - cy;
 
       // 4. Draw to Canvas replicating the exact styling perfectly
       const canvas = document.createElement('canvas');
@@ -114,8 +114,8 @@ const HeroParticles = () => {
 
       const count = pts.length;
 
-      // Make cubes perfectly pixel sized for a seamless blend
-      const particleScale = mobileFlag ? 1.2 : 1.0;
+      // Make cubes slightly larger per the user's request for a thicker, chunkier pixel effect
+      const particleScale = mobileFlag ? 1.6 : 1.4;
       const geometry = new THREE.BoxGeometry(particleScale, particleScale, particleScale);
       const material = new THREE.MeshBasicMaterial({ color: '#FFD600' });
       mesh = new THREE.InstancedMesh(geometry, material, count);
@@ -254,7 +254,7 @@ const HeroParticles = () => {
             margin: 0,
             fontFamily: 'var(--font-display)',
             fontWeight: 900,
-            fontSize: isMobile ? 'clamp(2.5rem, 11.5vw, 8rem)' : 'clamp(3rem, 9vw, 8rem)',
+            fontSize: isMobile ? 'clamp(3rem, 13vw, 8rem)' : 'clamp(3.5rem, 10vw, 8rem)',
             lineHeight: 1.05,
             letterSpacing: '-0.02em',
             color: '#FFD600',
