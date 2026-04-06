@@ -254,7 +254,8 @@ const HeroParticles = () => {
             margin: 0,
             fontFamily: 'var(--font-display)',
             fontWeight: 900,
-            fontSize: isMobile ? 'clamp(3rem, 13vw, 8rem)' : 'clamp(3.5rem, 10vw, 8rem)',
+            // Since 'ACUMEN' is the longest line now instead of 'ACUMEN IT', we can make the relative size much larger
+            fontSize: isMobile ? 'clamp(3rem, 18vw, 8rem)' : 'clamp(3.5rem, 10vw, 8rem)',
             lineHeight: 1.05,
             letterSpacing: '-0.02em',
             color: '#FFD600',
@@ -267,7 +268,7 @@ const HeroParticles = () => {
             zIndex: 1
           }}
         >
-          {isMobile ? "ACUMEN IT\n2026" : "ACUMEN IT 2026"}
+          {isMobile ? "ACUMEN\nIT\n2026" : "ACUMEN IT 2026"}
         </h1>
       </div>
     </>
