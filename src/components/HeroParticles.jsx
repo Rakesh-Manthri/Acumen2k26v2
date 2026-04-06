@@ -8,6 +8,10 @@ const HeroParticles = () => {
 
   const [showText, setShowText] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  
+  // Dev Tuning State
+  const [tuneX, setTuneX] = useState(2);
+  const [tuneY, setTuneY] = useState(12);
 
   useEffect(() => {
     let renderer, scene, camera, mesh;
@@ -47,14 +51,9 @@ const HeroParticles = () => {
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
 
-      // Adjust particles to perfectly match the internal HTML flexbox text rendering difference
-      const particleShiftX = 2;  // Shift particles right by 2px
-      // Use a larger offset on mobile because font baseline differs at mobile font sizes
-      const particleShiftY = mobileFlag ? 22 : 12; 
-
       // Convert mapping for orthographic space (origin is screen center)
-      const orthoX = cx - w / 2 + particleShiftX;
-      const orthoY = h / 2 - cy - particleShiftY;
+      const orthoX = cx - w / 2 + tuneX;
+      const orthoY = h / 2 - cy - tuneY;
 
       // 4. Draw to Canvas replicating the exact styling perfectly
       const canvas = document.createElement('canvas');
@@ -112,7 +111,7 @@ const HeroParticles = () => {
       const count = pts.length;
 
       // Make cubes perfectly pixel sized for a seamless blend
-      const particleScale = mobileFlag ? 0.8 : 1.0;
+      const particleScale = mobileFlag ? 1.2 : 1.0;
       const geometry = new THREE.BoxGeometry(particleScale, particleScale, particleScale);
       const material = new THREE.MeshBasicMaterial({ color: '#FFD600' });
       mesh = new THREE.InstancedMesh(geometry, material, count);
@@ -220,6 +219,18 @@ const HeroParticles = () => {
         canvasMountRef.current.removeChild(renderer.domElement);
       }
     };
+  }, [tuneX, tuneY]); // Re-run exact alignment engine on tune change
+
+  // Provide interactive dev tool listener
+  useEffect(() => {
+    const handleDevKeys = (e) => {
+      if (e.key === 'ArrowUp') setTuneY(prev => prev - 1);
+      if (e.key === 'ArrowDown') setTuneY(prev => prev + 1);
+      if (e.key === 'ArrowLeft') setTuneX(prev => prev - 1);
+      if (e.key === 'ArrowRight') setTuneX(prev => prev + 1);
+    };
+    window.addEventListener('keydown', handleDevKeys);
+    return () => window.removeEventListener('keydown', handleDevKeys);
   }, []);
 
   return (
@@ -233,11 +244,16 @@ const HeroParticles = () => {
           width: '100vw',
           height: '100vh',
           zIndex: 0, // Put behind navbar/components but over background
-          opacity: showText ? 0 : 1,
+          opacity: 1,
           transition: 'opacity 0.15s ease-in-out',
           pointerEvents: 'none'
         }}
       />
+
+      {/* Dev Tool Banner */}
+      <div style={{ position: 'fixed', top: 10, left: 10, zIndex: 9999, background: 'rgba(0,0,0,0.8)', color: '#FFD600', padding: '0.5rem 1rem', fontFamily: 'monospace', borderRadius: '4px' }}>
+        <strong>DEV TUNE:</strong> Use Arrow Keys to shift particles. (X: {tuneX}, Y: {tuneY})
+      </div>
 
       <div style={{ position: 'relative', width: '100%', height: '40vh', minHeight: '250px', marginTop: '-8vh' }}>
         <h1
@@ -251,13 +267,12 @@ const HeroParticles = () => {
             margin: 0,
             fontFamily: 'var(--font-display)',
             fontWeight: 900,
-            fontSize: isMobile ? 'clamp(4.5rem, 14vw, 8rem)' : 'clamp(3rem, 9vw, 8rem)',
+            fontSize: isMobile ? 'clamp(2.5rem, 11.5vw, 8rem)' : 'clamp(3rem, 9vw, 8rem)',
             lineHeight: 1.05,
             letterSpacing: '-0.02em',
-            color: '#FFD600',
-            opacity: showText ? 1 : 0,
+            color: 'rgba(255, 214, 0, 0.5)', // Half transparency so you can see overlap
+            opacity: 1, 
             transform: 'none',
-            transition: 'opacity 0.05s ease-in-out',
             pointerEvents: showText ? 'auto' : 'none',
             whiteSpace: 'pre-wrap',
             textAlign: 'center',

@@ -221,6 +221,7 @@ export default function Home() {
           border: '1px solid #3D3D3D',
           padding: '0.4rem 1rem',
           marginBottom: '3rem',
+          marginTop: '-3rem',
           display: 'inline-flex',
           alignItems: 'center',
           gap: '0.75rem',
