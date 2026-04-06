@@ -29,13 +29,12 @@ const ALL_EVENTS = [
 ];
 
 export default function Events() {
-  const containerRef = useRef(null);
-  const [scrollX, setScrollX] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
-  const startX = useRef(0);
-  const prevScrollX = useRef(0);
-  const isDraggingRef = useRef(false);
+  
+  // Touch variables for smooth mobile dragging simulation
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -44,48 +43,32 @@ export default function Events() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const itemWidth = isMobile ? 210 : 360;
-  const gap = isMobile ? 130 : 180;
-
-  const animatedScrollX = useRef(0);
-  const targetScrollX = useRef(0);
-
-  useEffect(() => {
-    let animationFrameId;
-    const renderLoop = () => {
-      if (!isDraggingRef.current) {
-        targetScrollX.current += isMobile ? 0.8 : 1.2;
-      }
-      animatedScrollX.current += (targetScrollX.current - animatedScrollX.current) * 0.08;
-      setScrollX(animatedScrollX.current);
-      animationFrameId = requestAnimationFrame(renderLoop);
-    };
-    renderLoop();
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isMobile]);
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handlePointerDown = (e) => {
-    setIsDragging(true);
-    isDraggingRef.current = true;
-    startX.current = e.clientX || (e.touches && e.touches[0].clientX);
-    prevScrollX.current = targetScrollX.current;
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % EVENTS.length);
   };
 
-  const handlePointerMove = (e) => {
-    if (!isDraggingRef.current) return;
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-    const delta = clientX - startX.current;
-    const dragMultiplier = isMobile ? 1.0 : 1.5;
-    targetScrollX.current = prevScrollX.current - delta * dragMultiplier;
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + EVENTS.length) % EVENTS.length);
   };
 
-  const handlePointerUp = () => {
-    setIsDragging(false);
-    isDraggingRef.current = false;
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchEndX.current) return;
+    const distance = touchStartX.current - touchEndX.current;
+    if (distance > 50) handleNext();
+    if (distance < -50) handlePrev();
+    touchEndX.current = 0; // reset
   };
 
   return (
@@ -97,9 +80,9 @@ export default function Events() {
       paddingTop: '60px',
     }}>
 
-      {/* ─── Hero ─── */}
+      {/* ─── Hero & Staggered Cards ─── */}
       <section style={{
-        padding: 'clamp(4rem, 8vw, 8rem) clamp(1.5rem, 5vw, 5rem) 0',
+        padding: 'clamp(4rem, 8vw, 8rem) clamp(1.5rem, 5vw, 5rem) 4rem',
         borderBottom: '1px solid #1a1a1a',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
@@ -134,134 +117,146 @@ export default function Events() {
             textTransform: 'uppercase',
             marginBottom: '4rem',
           }}>
-            DRAG TO EXPLORE · SCROLL TO CONTINUE
+            SWIPE TO EXPLORE · CLICK TO FOCUS
           </p>
         </div>
 
-        {/* Carousel */}
+        {/* 3D Staggered Carousel Area */}
         <div
-          ref={containerRef}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerLeave={handlePointerUp}
-          onTouchStart={handlePointerDown}
-          onTouchMove={handlePointerMove}
-          onTouchEnd={handlePointerUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           style={{
-            height: isMobile ? '400px' : '550px',
-            width: '100%',
             position: 'relative',
+            height: isMobile ? '450px' : '650px',
+            width: '100%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            cursor: isDragging ? 'grabbing' : 'grab',
-            touchAction: isMobile ? 'none' : 'pan-y',
-            userSelect: 'none',
+            perspective: '1200px',
           }}
         >
           {EVENTS.map((event, index) => {
-            const loopLength = EVENTS.length * gap;
-            const targetXPosition = index * gap;
-            const rawDistance = animatedScrollX.current - targetXPosition;
-            const wrappedDistance = ((rawDistance + loopLength / 2) % loopLength + loopLength) % loopLength - loopLength / 2;
+            // Circular Diff Calculation
+            const len = EVENTS.length;
+            let diff = (index - activeIndex) % len;
+            if (diff > len / 2) diff -= len;
+            else if (diff < -len / 2) diff += len;
 
-            const normalizedDistance = wrappedDistance / gap;
-            const absDist = Math.abs(normalizedDistance);
+            const absDiff = Math.abs(diff);
+            const isActive = diff === 0;
+            
+            // Layout Math
+            const spreadPixels = isMobile ? 65 : 190;
+            // Decrease horizontal gap for cards further out so they stack tightly
+            const horizontalCrunch = absDiff > 1 ? (absDiff - 1) * (isMobile ? 15 : 40) : 0;
+            const translateX = (diff * spreadPixels) - (Math.sign(diff) * horizontalCrunch);
 
-            const baseSpread = isMobile ? 140 : 280;
-            const exponentialShift = baseSpread * Math.log(1 + absDist * 1.5);
-            const translateX = Math.sign(normalizedDistance) * -exponentialShift;
+            // Z-Axis Scale Simulation
+            const scale = isActive ? 1.0 : Math.max(0.6, 1 - absDiff * 0.12);
+            const zIndex = 50 - absDiff;
 
-            const scale = Math.max(0, 1 - absDist * 0.1 - Math.pow(absDist, 1.4) * 0.1);
-            const zIndex = 100 - Math.round(absDist * 10);
-            const opacity = absDist >= 2.5 ? Math.max(0, 1 - (absDist - 2.5) * 2) : 1;
+            // Rotation - completely random scatter instead of a uniform fan curve
+            // Using a seeded pseudo-random formula so each card consistently keeps its unique tilt
+            const randomTilt = Math.sin(index * 45.1234) * 14; 
+            const rotateDeg = isActive ? 0 : randomTilt;
 
-            const clipY = Math.min(30, Math.pow(absDist, 1.4) * 7);
-            const clipPath = `inset(${clipY}% 0% round 0px)`;
-
-            const brightness = Math.max(0.4, 1 - absDist * 0.3);
+            // Opacity and Filters
+            const opacity = absDiff > 3 ? 0 : 1; 
+            const brightness = isActive ? 1 : Math.max(0.3, 0.9 - absDiff * 0.25);
 
             return (
               <div
                 key={event.id}
+                onClick={() => setActiveIndex(index)}
                 style={{
                   position: 'absolute',
-                  width: `${itemWidth}px`,
-                  height: `${itemWidth * 1.3}px`,
-                  transform: `translateX(${translateX}px) scale(${scale})`,
-                  opacity,
-                  zIndex,
-                  willChange: 'transform, opacity, clip-path',
-                  pointerEvents: isDragging ? 'none' : 'auto',
+                  width: isMobile ? '240px' : '400px',
+                  height: isMobile ? '350px' : '580px',
+                  backgroundColor: '#0a0a0a',
+                  // Highlight the active card significantly in pure technical brutalism
+                  border: isActive ? '2px solid #FFD600' : '1px solid #333',
+                  transform: `translateX(${translateX}px) scale(${scale}) rotate(${rotateDeg}deg)`,
+                  opacity: opacity,
+                  zIndex: zIndex,
+                  filter: `brightness(${brightness})`,
+                  transition: 'all 0.6s cubic-bezier(0.25, 1, 0.5, 1)',
+                  cursor: isActive ? 'default' : 'pointer',
+                  willChange: 'transform, filter, opacity',
+                  boxShadow: isActive ? '0 30px 60px rgba(0,0,0,0.8)' : '0 10px 20px rgba(0,0,0,0.4)',
                 }}
               >
                 <div style={{
                   position: 'relative',
                   width: '100%',
                   height: '100%',
-                  clipPath,
                   overflow: 'hidden',
-                  backgroundColor: '#111',
-                  border: absDist < 0.5 ? '1px solid #FFD600' : '1px solid #1a1a1a',
-                  filter: `brightness(${brightness})`,
-                  transition: 'filter 0.3s ease',
                 }}>
                   <img
                     src={event.img}
                     alt={event.title}
                     style={{
                       width: '100%',
-                      height: '85%',
+                      height: '80%',
                       objectFit: 'cover',
                       pointerEvents: 'none',
                       userSelect: 'none',
+                      filter: isActive ? 'none' : 'grayscale(60%)',
+                      transition: 'filter 0.6s ease',
                     }}
                     draggable={false}
                   />
-                  {/* Tag overlay */}
+                  
+                  {/* Brutalist Tag */}
                   <div style={{
                     position: 'absolute',
                     top: '1rem',
                     left: '1rem',
-                    background: '#FFD600',
-                    color: '#000',
+                    background: isActive ? '#FFD600' : '#222',
+                    color: isActive ? '#000' : '#888',
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.6rem',
+                    fontSize: '0.65rem',
                     fontWeight: 700,
                     letterSpacing: '0.1em',
-                    padding: '3px 8px',
+                    padding: '4px 10px',
                     textTransform: 'uppercase',
+                    boxShadow: isActive ? '4px 4px 0 rgba(0,0,0,1)' : 'none',
+                    transition: 'all 0.6s ease',
                   }}>{event.tag}</div>
 
-                  {/* Bottom metadata */}
+                  {/* Metadata Block */}
                   <div style={{
                     position: 'absolute',
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    height: '15%',
+                    height: '20%',
                     background: '#0A0A0A',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    padding: '0 1rem',
+                    padding: '0 1.25rem',
                     borderTop: '1px solid #1a1a1a',
                   }}>
                     <p style={{
                       fontFamily: 'var(--font-display)',
                       fontWeight: 700,
-                      fontSize: isMobile ? '0.9rem' : '1rem',
-                      color: '#F5F5F0',
+                      fontSize: isMobile ? '1.1rem' : '1.4rem',
+                      color: isActive ? '#FFD600' : '#F5F5F0',
                       textTransform: 'uppercase',
                       letterSpacing: '-0.01em',
+                      transition: 'color 0.6s ease',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
                     }}>{event.title}</p>
                     <p style={{
                       fontFamily: 'var(--font-mono)',
-                      fontSize: '0.65rem',
-                      color: '#555',
+                      fontSize: '0.7rem',
+                      color: '#888',
                       letterSpacing: '0.1em',
                       textTransform: 'uppercase',
+                      marginTop: '0.2rem',
                     }}>{event.subtitle}</p>
                   </div>
                 </div>
@@ -269,6 +264,47 @@ export default function Events() {
             );
           })}
         </div>
+
+        {/* Carousel Navigation Buttons */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '1rem',
+          marginTop: '3rem',
+        }}>
+          <button 
+            onClick={handlePrev}
+            style={{
+              background: '#0A0A0A',
+              border: '1px solid #888',
+              color: '#F5F5F0',
+              padding: '1rem 2rem',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '1rem',
+              transition: 'all 0.2s',
+            }}
+          >
+            ← PREV
+          </button>
+          <button 
+            onClick={handleNext}
+            style={{
+              background: '#FFD600',
+              border: '1px solid #FFD600',
+              color: '#0A0A0A',
+              padding: '1rem 2rem',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '1rem',
+              fontWeight: 700,
+              transition: 'all 0.2s',
+            }}
+          >
+            NEXT →
+          </button>
+        </div>
+
       </section>
 
       {/* ─── All Events Grid ─── */}
