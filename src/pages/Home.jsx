@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CountdownTimer from '../components/CountdownTimer'
 import HeroParticles from '../components/HeroParticles'
+import InfiniteMenu from '../components/InfiniteMenu'
 
 // ─── Data ────────────────────────────────────────────────────────────────────
+
 
 const mentors = [
   { name: 'Dr. S. V. Ramana', role: 'Principal', tag: 'PRINCIPAL' },
@@ -18,6 +20,15 @@ const coordinators = [
   { name: 'Hrishitha', role: 'Coordinator', tag: 'COORD' },
   { name: 'Bhavana', role: 'Coordinator', tag: 'COORD' },
 ]
+
+const pastFestImages = [
+  { image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=900&auto=format&fit=crop', link: '/events', title: 'HACKATHONS', description: '24-hour intense coding sprints and development.' },
+  { image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=900&auto=format&fit=crop', link: '/events', title: 'TECH EXPO', description: 'Showcasing brilliant student hardware and software.' },
+  { image: 'https://images.unsplash.com/photo-1531297172867-11dbee1281db?q=80&w=900&auto=format&fit=crop', link: '/events', title: 'ROBOTICS', description: 'Autonomous arenas and intense bot battles.' },
+  { image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=900&auto=format&fit=crop', link: '/events', title: 'WORKSHOPS', description: 'Learning from leading industry experts.' },
+  { image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=900&auto=format&fit=crop', link: '/events', title: 'GAMING ZONE', description: 'E-Sports, LAN parties, and casual gaming.' },
+]
+
 
 const eventHighlights = [
   { num: '[01]', title: 'CODE GENESIS', desc: 'Competitive programming at its finest. 3-hour sprint across algorithms, data structures, and system design.', tag: 'TECHNICAL' },
@@ -235,6 +246,54 @@ export default function Home() {
         <HeroParticles />
 
 
+      </section>
+
+      {/* ══════════════════════════════════════════
+          [SECTION] PAST FEST GALLERY 
+      ══════════════════════════════════════════ */}
+      <section style={{
+        background: '#0A0A0A',
+        borderTop: '1px solid #1a1a1a',
+        padding: 'clamp(2rem, 5vw, 4rem) 0',
+        overflow: 'hidden',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(1.5rem, 5vw, 5rem)', width: '100%' }}>
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.7rem',
+            fontWeight: 600,
+            color: '#FFD600',
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            display: 'block',
+            marginBottom: '1rem',
+          }}>[ PAST EDITIONS ]</span>
+          <h2 style={{
+            fontFamily: 'var(--font-display)',
+            fontWeight: 700,
+            fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+            lineHeight: 1.0,
+            letterSpacing: '-0.02em',
+            textTransform: 'uppercase',
+            color: '#F5F5F0',
+            marginBottom: '2rem',
+          }}>
+            THE LEGACY.
+          </h2>
+        </div>
+
+        {/* Anti-Scroll-Trap Wrapper: Small height on mobile, sweeping height on desktop */}
+        <div style={{
+          width: '100%',
+          height: 'clamp(300px, 40vh, 550px)',
+          position: 'relative'
+        }}>
+          <InfiniteMenu items={pastFestImages} scale={1.0} />
+        </div>
       </section>
 
       {/* ══════════════════════════════════════════

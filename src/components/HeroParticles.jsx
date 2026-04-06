@@ -48,7 +48,7 @@ const HeroParticles = () => {
       // before taking our snapshot, otherwise iOS Safari/Mobile defaults to Arial and ruins the particle layout!
       try {
         await document.fonts.load(`900 ${exactFontSize}px ${fontFam}`);
-      } catch (e) {}
+      } catch (e) { }
 
       // Center of the text
       const cx = rect.left + rect.width / 2;
@@ -235,7 +235,7 @@ const HeroParticles = () => {
           left: 0,
           width: '100vw',
           height: '100vh',
-          zIndex: 0, 
+          zIndex: 0,
           opacity: showText ? 0 : 1,
           transition: 'opacity 0.15s ease-in-out',
           pointerEvents: 'none'
@@ -259,7 +259,7 @@ const HeroParticles = () => {
             lineHeight: 1.05,
             letterSpacing: '-0.02em',
             color: '#FFD600',
-            opacity: showText ? 1 : 0, 
+            opacity: showText ? 1 : 0,
             transform: 'none',
             transition: 'opacity 0.15s ease-in-out',
             pointerEvents: showText ? 'auto' : 'none',
