@@ -46,6 +46,120 @@ function SectionTag({ children }) {
   )
 }
 
+// Add this helper component for the Team Cards
+const TeamCard = ({ person }) => (
+  <div 
+    style={{
+      background: 'rgba(255, 255, 255, 0.02)',
+      border: '1px solid #1a1a1a',
+      padding: '1.5rem',
+      position: 'relative',
+      transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+      cursor: 'crosshair',
+      overflow: 'hidden'
+    }}
+    onMouseEnter={e => {
+      e.currentTarget.style.borderColor = '#FFD600';
+      e.currentTarget.style.background = 'rgba(255, 214, 0, 0.02)';
+      e.currentTarget.style.transform = 'translateY(-5px)';
+      // Removed grayscale toggle
+      e.currentTarget.querySelector('.profile-img').style.transform = 'scale(1.05)';
+      e.currentTarget.querySelector('.corner-accent').style.opacity = '1';
+    }}
+    onMouseLeave={e => {
+      e.currentTarget.style.borderColor = '#1a1a1a';
+      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+      e.currentTarget.style.transform = 'translateY(0)';
+      // Removed grayscale toggle
+      e.currentTarget.querySelector('.profile-img').style.transform = 'scale(1)';
+      e.currentTarget.querySelector('.corner-accent').style.opacity = '0';
+    }}
+  >
+    {/* Technical Corner Accent */}
+    <div className="corner-accent" style={{
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      width: '20px',
+      height: '20px',
+      borderTop: '2px solid #FFD600',
+      borderRight: '2px solid #FFD600',
+      opacity: 0,
+      transition: 'opacity 0.3s'
+    }} />
+
+    {/* Image Container */}
+    <div style={{ 
+      width: '100%', 
+      aspectRatio: '1/1', 
+      background: '#111', 
+      marginBottom: '1.5rem',
+      overflow: 'hidden',
+      position: 'relative',
+      border: '1px solid rgba(255,255,255,0.05)'
+    }}>
+      <img 
+        className="profile-img"
+        src={person.image} 
+        alt={person.name} 
+        style={{ 
+          width: '100%', 
+          height: '100%', 
+          objectFit: 'cover',
+          // Filter removed here for full color
+          transition: 'transform 0.6s ease' 
+        }} 
+      />
+      
+      {/* Role Tag Overlay */}
+      <div style={{
+        position: 'absolute',
+        bottom: '0',
+        left: '0',
+        background: '#FFD600',
+        color: '#000',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.6rem',
+        fontWeight: 900,
+        padding: '2px 8px',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em'
+      }}>
+        {person.tag}
+      </div>
+    </div>
+
+    {/* Metadata */}
+    <div style={{ position: 'relative' }}>
+      <h3 style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: '1.1rem',
+        fontWeight: 700,
+        color: '#FFF',
+        textTransform: 'uppercase',
+        marginBottom: '0.4rem',
+        letterSpacing: '0.02em'
+      }}>
+        {person.name}
+      </h3>
+      
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '4px', height: '4px', background: '#FFD600', borderRadius: '50%' }} />
+        <p style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.7rem',
+          color: 'rgba(255,255,255,0.4)',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+          margin: 0
+        }}>
+          {person.role}
+        </p>
+      </div>
+    </div>
+  </div>
+);
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function Home() {
@@ -108,7 +222,7 @@ export default function Home() {
           justifyContent: 'center',
         }}>
           <span style={{ width: '8px', height: '8px', background: '#FFD600', display: 'inline-block', flexShrink: 0 }} />
-          VASAVI COLLEGE OF ENGINEERING(A) DEPARTMENT OF IT PRESENTS
+          VASAVI COLLEGE OF ENGINEERING (A) DEPARTMENT OF IT PRESENTS
         </div>
 
         {/* Tensortonic Wavy Background Mesh */}
@@ -134,16 +248,6 @@ export default function Home() {
         alignItems: 'center',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(1.5rem, 5vw, 5rem)', width: '100%' }}>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.7rem',
-            fontWeight: 600,
-            color: '#FFD600',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            display: 'block',
-            marginBottom: '1rem',
-          }}>[ PAST EDITIONS ]</span>
           <h2 style={{
             fontFamily: 'var(--font-display)',
             fontWeight: 700,
@@ -165,53 +269,10 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          [SECTION] TRUSTED BY / AFFILIATION TICKER
-      ══════════════════════════════════════════ */}
-      <section style={{
-        background: '#0A0A0A',
-        borderTop: '1px solid #1a1a1a',
-        borderBottom: '1px solid #1a1a1a',
-        padding: '3rem clamp(1.5rem, 5vw, 5rem)',
-        overflow: 'hidden',
-      }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <p style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.65rem',
-            color: '#555',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            marginBottom: '2rem',
-            textAlign: 'center',
-          }}>ORGANIZED BY</p>
-          <div style={{
-            display: 'flex',
-            gap: 'clamp(2rem, 6vw, 6rem)',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-          }}>
-            {['VASAVI COLLEGE', 'DEPT. OF IT', 'ACUMEN 2026', 'HYDERABAD', 'SINCE 2010'].map(name => (
-              <span key={name} style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.8rem',
-                fontWeight: 600,
-                color: '#3D3D3D',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-                whiteSpace: 'nowrap',
-              }}>{name}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
           [02] // COUNTDOWN / HOW IT WORKS  
       ══════════════════════════════════════════ */}
       <section style={{ ...sectionStyle, background: '#111' }} id="schedule">
         <div style={containerStyle}>
-          <SectionTag>[02] // SYMPOSIUM DAY</SectionTag>
           <h2 style={{
             fontFamily: 'var(--font-display)',
             fontWeight: 700,
@@ -286,7 +347,6 @@ export default function Home() {
       ══════════════════════════════════════════ */}
       <section style={{ ...sectionStyle, background: '#0A0A0A' }} id="team">
         <div style={containerStyle}>
-          <SectionTag>[04] // THE TEAM</SectionTag>
           <h2 style={{
             fontFamily: 'var(--font-display)',
             fontWeight: 700,
@@ -298,176 +358,58 @@ export default function Home() {
           }}>
             THE MINDS BEHIND<br />ACUMEN IT.
           </h2>
-          <p style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.8rem',
-            color: '#888',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            marginBottom: '4rem',
-          }}>DRIVING INNOVATION. ENABLING EXCELLENCE.</p>
 
-          {/* Faculty Mentors */}
-          <div style={{ marginBottom: '4rem' }}>
-            <p style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.65rem',
-              color: '#555',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              marginBottom: '2rem',
-              borderBottom: '1px solid #1a1a1a',
-              paddingBottom: '1rem',
-            }}>// FACULTY MENTORS</p>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
-              gap: '1px',
-              background: '#1a1a1a',
-              border: '1px solid #1a1a1a',
-            }}>
-              {mentors.map((m, i) => (
-                <div key={i} style={{
-                  background: '#0A0A0A',
-                  padding: '1.5rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1.5rem',
-                  transition: 'background 0.2s ease',
-                  border: '1px solid #1a1a1a',
-                }}
-                onMouseEnter={e => e.currentTarget.style.background = '#111'}
-                onMouseLeave={e => e.currentTarget.style.background = '#0A0A0A'}
-                >
-                  <div style={{ 
-                    width: '100%', 
-                    aspectRatio: '3/4', 
-                    background: '#1a1a1a', 
-                    overflow: 'hidden', 
-                    border: '1px solid #3D3D3D',
-                    position: 'relative'
-                  }}>
-                    <img 
-                      src={m.image} 
-                      alt={m.name} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                    <div style={{
-                      position: 'absolute',
-                      top: '0.75rem',
-                      right: '0.75rem',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.6rem',
-                      fontWeight: 700,
-                      color: '#FFD600',
-                      background: '#000',
-                      padding: '2px 8px',
-                      textTransform: 'uppercase',
-                      border: '1px solid #FFD600'
-                    }}>{m.tag}</div>
-                  </div>
-                  <div>
-                    <p style={{
-                      fontFamily: 'var(--font-display)',
-                      fontWeight: 600,
-                      fontSize: '1.1rem',
-                      color: '#F5F5F0',
-                      marginBottom: '0.25rem',
-                      textTransform: 'uppercase'
-                    }}>{m.name}</p>
-                    <p style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.7rem',
-                      color: '#888',
-                      letterSpacing: '0.05em',
-                      textTransform: 'uppercase',
-                    }}>{m.role}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+{/* Faculty Mentors Section */}
+<div style={{ marginBottom: '6rem' }}>
+  <div style={{ 
+    display: 'flex', 
+    alignItems: 'center', 
+    gap: '1rem', 
+    marginBottom: '3rem',
+    borderBottom: '1px solid #1a1a1a',
+    paddingBottom: '1rem' 
+  }}>
+    <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', textTransform: 'uppercase', color: '#FFF' }}>
+      FACULTY MENTORS
+    </h2>
+  </div>
 
-          {/* Student Coordinators */}
-          <div>
-            <p style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.65rem',
-              color: '#555',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              marginBottom: '2rem',
-              borderBottom: '1px solid #1a1a1a',
-              paddingBottom: '1rem',
-            }}>// STUDENT COORDINATORS</p>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
-              gap: '1px',
-              background: '#1a1a1a',
-              border: '1px solid #1a1a1a',
-            }}>
-              {coordinators.map((c, i) => (
-                <div key={i} style={{
-                  background: '#0A0A0A',
-                  padding: '1.5rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1.5rem',
-                  transition: 'background 0.2s ease',
-                  border: '1px solid #1a1a1a',
-                }}
-                onMouseEnter={e => e.currentTarget.style.background = '#111'}
-                onMouseLeave={e => e.currentTarget.style.background = '#0A0A0A'}
-                >
-                  <div style={{ 
-                    width: '100%', 
-                    aspectRatio: '3/4', 
-                    background: '#1a1a1a', 
-                    overflow: 'hidden', 
-                    border: '1px solid #3D3D3D',
-                    position: 'relative'
-                  }}>
-                    <img 
-                      src={c.image} 
-                      alt={c.name} 
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                    <div style={{
-                      position: 'absolute',
-                      top: '0.75rem',
-                      right: '0.75rem',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.6rem',
-                      fontWeight: 700,
-                      color: '#FFD600',
-                      background: '#000',
-                      padding: '2px 8px',
-                      textTransform: 'uppercase',
-                      border: '1px solid #FFD600'
-                    }}>{c.tag}</div>
-                  </div>
-                  <div>
-                    <p style={{
-                      fontFamily: 'var(--font-display)',
-                      fontWeight: 600,
-                      fontSize: '1.1rem',
-                      color: '#F5F5F0',
-                      marginBottom: '0.25rem',
-                      textTransform: 'uppercase'
-                    }}>{c.name}</p>
-                    <p style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.7rem',
-                      color: '#888',
-                      letterSpacing: '0.05em',
-                      textTransform: 'uppercase',
-                    }}>{c.role}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gap: '1.5rem'
+  }}>
+    {mentors.map((person, i) => {
+      return <TeamCard key={i} person={person} />
+    })}
+  </div>
+</div>
+
+{/* Student Coordinators Section */}
+<div style={{ marginBottom: '6rem' }}>
+  <div style={{ 
+    display: 'flex', 
+    alignItems: 'center', 
+    gap: '1rem', 
+    marginBottom: '3rem',
+    borderBottom: '1px solid #1a1a1a',
+    paddingBottom: '1rem' 
+  }}>
+    <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '1.8rem', textTransform: 'uppercase', color: '#FFF' }}>
+      Student Coordinators
+    </h2>
+  </div>
+
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gap: '1.5rem'
+  }}>
+    {coordinators.map((person, i) => {
+      return <TeamCard key={i} person={person} />
+    })}
+  </div>
+</div>
         </div>
       </section>
 
@@ -494,18 +436,10 @@ export default function Home() {
             STOP WAITING.<br />
             <span style={{ color: '#FFD600' }}>START COMPETING.</span>
           </h2>
-          <p style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.85rem',
-            color: '#888',
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            marginBottom: '3rem',
-          }}>JOIN 500+ BUILDERS WHO COMPETE AT ACUMEN IT 2026, APRIL 16.</p>
 
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/register" className="btn-primary" style={{ padding: '1.25rem 3rem', fontSize: '0.85rem' }}>
-              REGISTER NOW — FREE
+              REGISTER NOW
             </Link>
             <Link to="/events" className="btn-outline" style={{ padding: '1.25rem 3rem', fontSize: '0.85rem' }}>
               VIEW SCHEDULE

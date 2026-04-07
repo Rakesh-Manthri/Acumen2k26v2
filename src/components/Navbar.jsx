@@ -57,7 +57,7 @@ export default function Navbar() {
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
           }}>
-            ACUMEN IT
+            ACUMEN IT 2026
           </span>
         </Link>
 

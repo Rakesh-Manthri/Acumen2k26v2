@@ -20,9 +20,6 @@ const EVENTS_LIST = [
   { id: 'event-19', title: 'PIXEL ART', price: '₹30', tag: 'CREATIVE' },
 ]
 
-
-
-
 const inputStyle = (error) => ({
   width: '100%',
   padding: '0.9rem 1rem',
