@@ -146,16 +146,6 @@ export default function Register() {
           borderBottom: '1px solid #1a1a1a',
           marginBottom: '4rem',
         }}>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.7rem',
-            fontWeight: 600,
-            color: '#FFD600',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            display: 'block',
-            marginBottom: '1.5rem',
-          }}>[09] // REGISTRATION</span>
           <h1 style={{
             fontFamily: 'var(--font-display)',
             fontWeight: 700,
@@ -174,7 +164,7 @@ export default function Register() {
             color: '#888',
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
-          }}>ACUMEN IT SYMPOSIUM · APRIL 16, 2026 · VASAVI COLLEGE</p>
+          }}>ACUMEN IT · APRIL 16, 2026 · VASAVI COLLEGE</p>
         </header>
 
         <form onSubmit={handleSubmit(onSubmit)} style={{

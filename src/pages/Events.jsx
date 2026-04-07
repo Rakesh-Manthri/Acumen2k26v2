@@ -86,16 +86,6 @@ export default function Events() {
         borderBottom: '1px solid #1a1a1a',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.7rem',
-            fontWeight: 600,
-            color: '#FFD600',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            display: 'block',
-            marginBottom: '1.5rem',
-          }}>[07] // SHOWCASE</span>
 
           <h1 style={{
             fontFamily: 'var(--font-display)',
@@ -117,7 +107,7 @@ export default function Events() {
             textTransform: 'uppercase',
             marginBottom: '4rem',
           }}>
-            SWIPE TO EXPLORE · CLICK TO FOCUS
+            SWIPE TO EXPLORE
           </p>
         </div>
 
@@ -313,16 +303,6 @@ export default function Events() {
         borderTop: '1px solid #1a1a1a',
       }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.7rem',
-            fontWeight: 600,
-            color: '#FFD600',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            display: 'block',
-            marginBottom: '1.5rem',
-          }}>[08] // ALL EVENTS</span>
 
           <h2 style={{
             fontFamily: 'var(--font-display)',
