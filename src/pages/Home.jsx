@@ -14,23 +14,23 @@ const mentors = [
 ]
 
 const coordinators = [
-  { name: 'Raja Sheshu', role: 'Overall Acumen IT Coordinator - Head of Marketing & Logistics', image: '/Acumen Coordinators/Shesh.jpg' },
-  { name: 'Vaishnavi', role: 'Overall Coordinator - Head of Design & Technology', image: '/Acumen Coordinators/Vaishnavi.JPG' },
-  { name: 'Sharath', role: 'Overall Coordinator - Head of Logistics', image: '/Acumen Coordinators/Sharath.jpg' },
-  { name: 'Saakshi', role: 'Overall Coordinator - Head of Marketing', image: '/Acumen Coordinators/Saakshi.jpg' },
-  { name: 'Aashritha', role: 'Overall Coordinator - Head of Marketing', image: '/Acumen Coordinators/Aashritha.jpg' },
-  { name: 'Goutham Siddharth', role: 'Creative Head', image: '/Acumen Coordinators/Goutham.jpg' },
-  { name: 'Harika', role: 'Overall Coordinator', image: '/Acumen Coordinators/Harika.jpg' },
-  { name: 'Nithya', role: 'Overall Coordinator', image: '/Acumen Coordinators/Nithya.jpg' },
-  { name: 'Jai Chandra', role: 'Technology Lead', image: '/Acumen Coordinators/Jai Chandra.jpg' },
-  { name: 'Sirivennela', role: 'Design Lead', image: '/Acumen Coordinators/Sirivennela.jpg' },
-  { name: 'Kavya', role: 'Design Lead', image: '/Acumen Coordinators/Kavya.jpg' },
-  { name: 'Vishnu', role: 'Marketing Lead', image: '/Acumen Coordinators/Vishnu.jpg' },
-  { name: 'Shashank', role: 'Logistics Lead', image: '/Acumen Coordinators/Shashank.jpg' },
-  { name: 'Vasist', role: 'Logistics Lead', image: '/Acumen Coordinators/Vasist.jpg' },
-  { name: 'Viveak', role: 'Dev Lead', image: '/Acumen Coordinators/Viveak.jpg' },
-  { name: 'Vibhas', role: 'Dev Lead', image: '/Acumen Coordinators/Vibhas.jpg' },
-  { name: 'Yashwanth', role: 'Finance Lead', image: '/Acumen Coordinators/Yashwanth.jpg' },
+  { name: 'Raja Sheshu', role: 'Overall Acumen IT Coordinator - Head of Marketing & Logistics', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0108.jpg' },
+  { name: 'Vaishnavi', role: 'Overall Coordinator - Head of Design & Technology', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0201.jpg' },
+  { name: 'Sharath', role: 'Overall Coordinator - Head of Logistics', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0125.jpg' },
+  { name: 'Saakshi', role: 'Overall Coordinator - Head of Marketing', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0202.jpg' },
+  { name: 'Aashritha', role: 'Overall Coordinator - Head of Marketing', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0198.jpg' },
+  { name: 'Goutham Siddharth', role: 'Creative Head', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0189.jpg' },
+  { name: 'Harika', role: 'Overall Coordinator', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0165.jpg' },
+  { name: 'Nithya', role: 'Overall Coordinator', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0156.jpg' },
+  { name: 'Jai Chandra', role: 'Technology Lead', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0138.jpg' },
+  { name: 'Sirivennela', role: 'Design Lead', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0199.jpg' },
+  { name: 'Kavya', role: 'Design Lead', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0191.jpg' },
+  { name: 'Vishnu', role: 'Marketing Lead', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0084.jpg' },
+  { name: 'Shashank', role: 'Logistics Lead', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0130.jpg' },
+  { name: 'Vasist', role: 'Logistics Lead', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0197.jpg' },
+  { name: 'Viveak', role: 'Dev Lead', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0137.jpg' },
+  { name: 'Vibhas', role: 'Dev Lead', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20251113-WA0001(1).jpg' },
+  { name: 'Yashwanth', role: 'Finance Lead', image: 'https://ik.imagekit.io/z56vo1out/coordinators/student/IMG-20260409-WA0200.jpg' },
 ]
 
 const sponsors = [
@@ -40,16 +40,16 @@ const sponsors = [
 ]
 
 const pastFestImages = [
-  { image: '/Acumen gallery/DSC03964.JPG' },
-  { image: '/Acumen gallery/DSC03968.JPG' },
-  { image: '/Acumen gallery/DSC03977.JPG' },
-  { image: '/Acumen gallery/DSC03987.JPG' },
-  { image: '/Acumen gallery/DSC03993.JPG' },
-  { image: '/Acumen gallery/DSC03994.JPG' },
-  { image: '/Acumen gallery/DSC03995.JPG' },
-  { image: '/Acumen gallery/DSC04038.JPG' },
-  { image: '/Acumen gallery/DSC04235.JPG' },
-  { image: '/Acumen gallery/DSC04397.JPG' },
+  { image: 'https://ik.imagekit.io/nrnoi8kkt/acumen%20gallery/IMG-20260409-WA0178.jpg?updatedAt=1775760741219' },
+  { image: 'https://ik.imagekit.io/nrnoi8kkt/acumen%20gallery/IMG-20260409-WA0184.jpg?updatedAt=1775760741236' },
+  { image: 'https://ik.imagekit.io/nrnoi8kkt/acumen%20gallery/IMG-20260409-WA0183.jpg?updatedAt=1775760741208' },
+  { image: 'https://ik.imagekit.io/nrnoi8kkt/acumen%20gallery/IMG-20260409-WA0181.jpg?updatedAt=1775760741130' },
+  { image: 'https://ik.imagekit.io/nrnoi8kkt/acumen%20gallery/IMG-20260409-WA0182.jpg?updatedAt=1775760741105' },
+  { image: 'https://ik.imagekit.io/nrnoi8kkt/acumen%20gallery/IMG-20260409-WA0179.jpg?updatedAt=1775760741084' },
+  { image: 'https://ik.imagekit.io/nrnoi8kkt/acumen%20gallery/IMG-20260409-WA0180.jpg?updatedAt=1775760740976' },
+  { image: 'https://ik.imagekit.io/nrnoi8kkt/acumen%20gallery/IMG-20260409-WA0176.jpg?updatedAt=1775760740975' },
+  { image: 'https://ik.imagekit.io/nrnoi8kkt/acumen%20gallery/IMG-20260409-WA0177.jpg?updatedAt=1775760740551' },
+  { image: 'https://ik.imagekit.io/nrnoi8kkt/acumen%20gallery/IMG-20260409-WA0166.jpg?updatedAt=1775760737802' },
 ]
 
 // ─── Sub-Components ───────────────────────────────────────────────────────────

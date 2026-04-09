@@ -2,14 +2,15 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const EVENTS = [
-  { id: 1, title: 'BINARY BOUNTY HUNT', subtitle: 'April 16', img: '/Posters/binary_bounty_hunt.png' },
-  { id: 2, title: 'BGMI CHALLENGE', subtitle: 'April 16', img: '/Posters/bgmi.png' },
-  { id: 3, title: 'IPL AUCTION', subtitle: 'April 16', img: '/Posters/ipl_auction.png' },
-  { id: 4, title: 'WEBATHON', subtitle: 'April 16', img: '/Posters/webathon.png' },
-  { id: 5, title: 'PROJECT EXPO', subtitle: 'April 16', img: '/Posters/prject_expo.png' },
-  { id: 6, title: 'PAPER PRESENTATION', subtitle: 'April 16', img: '/Posters/poster_paper.png' },
-  { id: 7, title: 'SCARY HOUSE', subtitle: 'April 16', img: '/Posters/scary_house.png' },
-  { id: 8, title: 'CATCH THE STICK', subtitle: 'April 16', img: '/Posters/catche_the_stick.png' },
+  { id: 1, title: 'BINARY BOUNTY HUNT', subtitle: 'April 16', img: 'https://ik.imagekit.io/myqbqle50/posters/binary_bounty_hunt' },
+  { id: 2, title: 'BGMI CHALLENGE', subtitle: 'April 16', img: 'https://ik.imagekit.io/myqbqle50/posters/BGMI' },
+  { id: 3, title: 'IPL AUCTION', subtitle: 'April 16', img: 'https://ik.imagekit.io/myqbqle50/posters/IPL_auction' },
+  { id: 4, title: 'WEBATHON', subtitle: 'April 16', img: 'https://ik.imagekit.io/myqbqle50/posters/Webathon' },
+  { id: 5, title: 'PROJECT EXPO', subtitle: 'April 16', img: 'https://ik.imagekit.io/myqbqle50/posters/Project_expo' },
+  { id: 6, title: 'PAPER PRESENTATION', subtitle: 'April 16', img: 'https://ik.imagekit.io/myqbqle50/posters/paper_and_poster' },
+  { id: 7, title: 'SCARY HOUSE', subtitle: 'April 16', img: 'https://ik.imagekit.io/myqbqle50/posters/ScaryHouse' },
+  { id: 8, title: 'CATCH THE STICK', subtitle: 'April 16', img: 'https://ik.imagekit.io/myqbqle50/posters/Catch_the_stick' },
+  { id: 9, title: 'SENSORX', subtitle: 'April 16', img: 'https://ik.imagekit.io/myqbqle50/posters/SensorX' },
 ];
 
 const ALL_EVENTS = [
