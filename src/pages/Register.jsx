@@ -66,7 +66,7 @@ export default function Register() {
   })
 
   const selectedEvents = watch('selectedEvents') || []
-  
+
   const totalAmount = selectedEvents.reduce((sum, title) => {
     const event = EVENTS_LIST.find(e => e.title === title)
     if (event) {
@@ -75,14 +75,14 @@ export default function Register() {
     }
     return sum
   }, 0)
-  
+
   // Debug validation errors
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
       console.log("Validation Errors:", errors);
     }
   }, [errors]);
-  
+
   const [submitted, setSubmitted] = useState(false)
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default function Register() {
   const onSubmit = async (data) => {
     console.log("Form Submitted, data:", data);
     try {
-      const response = await fetch('http://localhost:5000/api/register', {
+      const response = await fetch('http://192.168.0.104:5000/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -231,32 +231,32 @@ export default function Register() {
             padding: '2.5rem',
             background: '#0d0d0d',
           }}>
-<div style={{
-  position: 'relative',
-  marginBottom: '2.5rem',
-  paddingLeft: '1.5rem',
-}}>
-  {/* Vertical Accent Line */}
-  <div style={{
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    bottom: 0,
-    width: '1px',
-    background: 'linear-gradient(to bottom, #FFD600, transparent)'
-  }} />
-  
-  <h2 style={{
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.5rem',
-    color: '#F5F5F0',
-    textTransform: 'uppercase',
-    margin: '0.5rem 0 0 0',
-    letterSpacing: '-0.02em'
-  }}>
-    PARTICIPANT DETAILS
-  </h2>
-</div>
+            <div style={{
+              position: 'relative',
+              marginBottom: '2.5rem',
+              paddingLeft: '1.5rem',
+            }}>
+              {/* Vertical Accent Line */}
+              <div style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                bottom: 0,
+                width: '1px',
+                background: 'linear-gradient(to bottom, #FFD600, transparent)'
+              }} />
+
+              <h2 style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '1.5rem',
+                color: '#F5F5F0',
+                textTransform: 'uppercase',
+                margin: '0.5rem 0 0 0',
+                letterSpacing: '-0.02em'
+              }}>
+                PARTICIPANT DETAILS
+              </h2>
+            </div>
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -273,23 +273,23 @@ export default function Register() {
               </FormField>
 
               <FormField id="email" label="Email Address" error={errors.email} required>
-  <input
-    {...register('email', { 
-      required: 'Email is required',
-      pattern: {
-        // Standard RFC 5322 compliant regex for emails
-        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        message: "Invalid email format (e.g., name@domain.com)"
-      }
-    })}
-    type="email"
-    placeholder="YOUR@EMAIL.COM"
-    style={inputStyle(errors.email)}
-    onFocus={e => e.target.style.borderColor = '#FFD600'}
-    // Validation-aware blur: stays orange if there's an error, goes dark if clean
-    onBlur={e => e.target.style.borderColor = errors.email ? '#FF6B35' : '#3D3D3D'}
-  />
-</FormField>
+                <input
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      // Standard RFC 5322 compliant regex for emails
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email format (e.g., name@domain.com)"
+                    }
+                  })}
+                  type="email"
+                  placeholder="YOUR@EMAIL.COM"
+                  style={inputStyle(errors.email)}
+                  onFocus={e => e.target.style.borderColor = '#FFD600'}
+                  // Validation-aware blur: stays orange if there's an error, goes dark if clean
+                  onBlur={e => e.target.style.borderColor = errors.email ? '#FF6B35' : '#3D3D3D'}
+                />
+              </FormField>
 
               <FormField id="branch" label="Branch" error={errors.branch} required>
                 <input
@@ -325,28 +325,28 @@ export default function Register() {
               </FormField>
 
               <FormField id="rollNo" label="Roll Number" error={errors.rollNo} required>
-  <input
-    {...register('rollNo', { 
-      required: 'Roll Number is required',
-      pattern: {
-        // Regex Breakdown:
-        // ^\d{4} : Starts with 4 digits (1602)
-        // -      : Followed by a hyphen
-        // \d{2}  : 2 digits (24)
-        // -      : Hyphen
-        // \d{3}  : 3 digits (737)
-        // -      : Hyphen
-        // \d{3}$ : Ends with 3 digits (001)
-        value: /^\d{4}-\d{2}-\d{3}-\d{3}$/,
-        message: 'Required format: 1602-24-737-001'
-      }
-    })}
-    placeholder="1602-24-737-001"
-    style={inputStyle(errors.rollNo)}
-    onFocus={e => e.target.style.borderColor = '#FFD600'}
-    onBlur={e => e.target.style.borderColor = errors.rollNo ? '#FF6B35' : '#3D3D3D'}
-  />
-</FormField>
+                <input
+                  {...register('rollNo', {
+                    required: 'Roll Number is required',
+                    pattern: {
+                      // Regex Breakdown:
+                      // ^\d{4} : Starts with 4 digits (1602)
+                      // -      : Followed by a hyphen
+                      // \d{2}  : 2 digits (24)
+                      // -      : Hyphen
+                      // \d{3}  : 3 digits (737)
+                      // -      : Hyphen
+                      // \d{3}$ : Ends with 3 digits (001)
+                      value: /^\d{4}-\d{2}-\d{3}-\d{3}$/,
+                      message: 'Required format: 1602-24-737-001'
+                    }
+                  })}
+                  placeholder="1602-24-737-001"
+                  style={inputStyle(errors.rollNo)}
+                  onFocus={e => e.target.style.borderColor = '#FFD600'}
+                  onBlur={e => e.target.style.borderColor = errors.rollNo ? '#FF6B35' : '#3D3D3D'}
+                />
+              </FormField>
 
               <FormField id="college" label="College Name" error={errors.college} required>
                 <input
@@ -361,228 +361,228 @@ export default function Register() {
           </div>
 
           {/* Section 2: Events Selection */}
-<div style={{
-  border: '1px solid rgba(255, 255, 255, 0.1)',
-  padding: '2.5rem',
-  background: 'rgba(255, 255, 255, 0.03)', // Transparent base
-  backdropFilter: 'blur(12px)', // Core glassmorphism effect
-  WebkitBackdropFilter: 'blur(12px)',
-  boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-  position: 'relative'
-}}>
-  <div style={{
-    position: 'relative',
-    marginBottom: '2.5rem',
-    paddingLeft: '1.5rem',
-  }}>
-    <div style={{
-      position: 'absolute',
-      left: 0,
-      top: 0,
-      bottom: 0,
-      width: '2px',
-      background: 'linear-gradient(to bottom, #FFD600, transparent)'
-    }} />
-    <h2 style={{
-      fontFamily: 'var(--font-display)',
-      fontSize: '1.5rem',
-      color: '#F5F5F0',
-      textTransform: 'uppercase',
-      margin: '0.5rem 0 0 0',
-      letterSpacing: '-0.02em'
-    }}>
-      Select Events
-    </h2>
-  </div>
+          <div style={{
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            padding: '2.5rem',
+            background: 'rgba(255, 255, 255, 0.03)', // Transparent base
+            backdropFilter: 'blur(12px)', // Core glassmorphism effect
+            WebkitBackdropFilter: 'blur(12px)',
+            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+            position: 'relative'
+          }}>
+            <div style={{
+              position: 'relative',
+              marginBottom: '2.5rem',
+              paddingLeft: '1.5rem',
+            }}>
+              <div style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                bottom: 0,
+                width: '2px',
+                background: 'linear-gradient(to bottom, #FFD600, transparent)'
+              }} />
+              <h2 style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '1.5rem',
+                color: '#F5F5F0',
+                textTransform: 'uppercase',
+                margin: '0.5rem 0 0 0',
+                letterSpacing: '-0.02em'
+              }}>
+                Select Events
+              </h2>
+            </div>
 
-  {/* Scrollable Container */}
-  <div className="custom-scrollbar" style={{
-    maxHeight: '450px', // Fixed height for scrolling
-    overflowY: 'auto',
-    paddingRight: '1rem',
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '1rem',
-  }}>
-    {EVENTS_LIST.map((event) => (
-      <label 
-        key={event.id} 
-        className="event-card" 
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '1.25rem 1.5rem',
-          background: 'rgba(255, 255, 255, 0.02)',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
-          cursor: 'pointer',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          gap: '1rem',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
-          <input
-            type="checkbox"
-            {...register('selectedEvents')}
-            value={event.title}
+            {/* Scrollable Container */}
+            <div className="custom-scrollbar" style={{
+              maxHeight: '450px', // Fixed height for scrolling
+              overflowY: 'auto',
+              paddingRight: '1rem',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '1rem',
+            }}>
+              {EVENTS_LIST.map((event) => (
+                <label
+                  key={event.id}
+                  className="event-card"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '1.25rem 1.5rem',
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    border: '1px solid rgba(255, 255, 255, 0.05)',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    gap: '1rem',
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1 }}>
+                    <input
+                      type="checkbox"
+                      {...register('selectedEvents')}
+                      value={event.title}
+                      style={{
+                        width: '18px',
+                        height: '18px',
+                        accentColor: '#FFD600',
+                        cursor: 'pointer',
+                        flexShrink: 0,
+                      }}
+                    />
+                    <div>
+                      <p style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontWeight: 700,
+                        fontSize: '0.75rem',
+                        color: '#F5F5F0',
+                        textTransform: 'uppercase',
+                        marginBottom: '4px'
+                      }}>{event.title}</p>
+                      <span style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.6rem',
+                        color: '#FFD600',
+                        background: 'rgba(255, 214, 0, 0.1)',
+                        padding: '2px 6px',
+                        border: '1px solid rgba(255, 214, 0, 0.2)',
+                        textTransform: 'uppercase',
+                      }}>{event.tag}</span>
+                    </div>
+                  </div>
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontWeight: 700,
+                    fontSize: '0.9rem',
+                    color: 'rgba(255, 255, 255, 0.4)',
+                    flexShrink: 0,
+                  }}>{event.price}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Section 3: Payment Section (Conditional) */}
+          {selectedEvents.length > 0 && (
+            <div style={{
+              border: '1px solid #1a1a1a',
+              padding: '2.5rem',
+              background: '#0d0d0d',
+            }}>
+              <div style={{
+                position: 'relative',
+                marginBottom: '2.5rem',
+                paddingLeft: '1.5rem',
+              }}>
+                <div style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: '1px',
+                  background: 'linear-gradient(to bottom, #FFD600, transparent)'
+                }} />
+                <h2 style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.5rem',
+                  color: '#F5F5F0',
+                  textTransform: 'uppercase',
+                  margin: '0.5rem 0 0 0',
+                  letterSpacing: '-0.02em'
+                }}>
+                  PAYMENT DETAILS
+                </h2>
+              </div>
+
+              <div style={{
+                background: 'rgba(255, 214, 0, 0.05)',
+                border: '1px solid #332200',
+                padding: '2rem',
+                marginBottom: '2rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '1.5rem'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                  <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '1rem', color: '#888' }}>TOTAL_AMOUNT:</h3>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '1.5rem', fontWeight: 700, color: '#FFD600' }}>₹{totalAmount}</span>
+                </div>
+
+                <div style={{ padding: '1rem', background: '#FFF' }}>
+                  <img
+                    src="/assets/qr-dWM8w90D.webp"
+                    alt="Payment QR Code"
+                    style={{ width: '200px', height: '200px', display: 'block' }}
+                    onError={(e) => {
+                      e.target.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=AcumenIT-Payment-Placeholder'
+                    }}
+                  />
+                </div>
+
+                <div style={{ textAlign: 'center' }}>
+                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#F5F5F0', marginBottom: '0.5rem' }}>
+                    SCAN QR TO PAY ₹{totalAmount}
+                  </p>
+                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: '#555' }}>
+                    FOR QUERIES CONTACT: 8688569105
+                  </p>
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                <FormField id="transactionId" label="Transaction ID" error={errors.transactionId} required>
+                  <input
+                    {...register('transactionId', { required: 'Required' })}
+                    placeholder="ENTER UTR / TXN ID"
+                    style={inputStyle(errors.transactionId)}
+                    onFocus={e => e.target.style.borderColor = '#FFD600'}
+                    onBlur={e => e.target.style.borderColor = errors.transactionId ? '#FF6B35' : '#3D3D3D'}
+                  />
+                </FormField>
+
+                <FormField id="paymentScreenshotLink" label="Screenshot Drive Link" error={errors.paymentScreenshotLink} required>
+                  <input
+                    {...register('paymentScreenshotLink', { required: 'Required' })}
+                    placeholder="PASTE GOOGLE DRIVE LINK"
+                    style={inputStyle(errors.paymentScreenshotLink)}
+                    onFocus={e => e.target.style.borderColor = '#FFD600'}
+                    onBlur={e => e.target.style.borderColor = errors.paymentScreenshotLink ? '#FF6B35' : '#3D3D3D'}
+                  />
+                  <p style={{ fontSize: '0.6rem', color: '#444', marginTop: '0.5rem', fontFamily: 'var(--font-mono)' }}>
+            // Ensure link is public (Anyone with the link can view)
+                  </p>
+                </FormField>
+              </div>
+            </div>
+          )}
+
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={isSubmitting}
             style={{
-              width: '18px',
-              height: '18px',
-              accentColor: '#FFD600',
-              cursor: 'pointer',
-              flexShrink: 0,
-            }}
-          />
-          <div>
-            <p style={{
+              background: isSubmitting ? '#333' : '#FFD600',
+              color: isSubmitting ? '#888' : '#000',
+              padding: '1.25rem',
+              border: 'none',
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
               fontFamily: 'var(--font-mono)',
               fontWeight: 700,
-              fontSize: '0.75rem',
-              color: '#F5F5F0',
+              fontSize: '0.85rem',
+              letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              marginBottom: '4px'
-            }}>{event.title}</p>
-            <span style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.6rem',
-              color: '#FFD600',
-              background: 'rgba(255, 214, 0, 0.1)',
-              padding: '2px 6px',
-              border: '1px solid rgba(255, 214, 0, 0.2)',
-              textTransform: 'uppercase',
-            }}>{event.tag}</span>
-          </div>
-        </div>
-        <span style={{
-          fontFamily: 'var(--font-mono)',
-          fontWeight: 700,
-          fontSize: '0.9rem',
-          color: 'rgba(255, 255, 255, 0.4)',
-          flexShrink: 0,
-        }}>{event.price}</span>
-      </label>
-    ))}
-  </div>
-</div>
-
-  {/* Section 3: Payment Section (Conditional) */}
-  {selectedEvents.length > 0 && (
-    <div style={{
-      border: '1px solid #1a1a1a',
-      padding: '2.5rem',
-      background: '#0d0d0d',
-    }}>
-      <div style={{
-        position: 'relative',
-        marginBottom: '2.5rem',
-        paddingLeft: '1.5rem',
-      }}>
-        <div style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: '1px',
-          background: 'linear-gradient(to bottom, #FFD600, transparent)'
-        }} />
-        <h2 style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: '1.5rem',
-          color: '#F5F5F0',
-          textTransform: 'uppercase',
-          margin: '0.5rem 0 0 0',
-          letterSpacing: '-0.02em'
-        }}>
-          PAYMENT DETAILS
-        </h2>
-      </div>
-
-      <div style={{
-        background: 'rgba(255, 214, 0, 0.05)',
-        border: '1px solid #332200',
-        padding: '2rem',
-        marginBottom: '2rem',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '1.5rem'
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-          <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '1rem', color: '#888' }}>TOTAL_AMOUNT:</h3>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '1.5rem', fontWeight: 700, color: '#FFD600' }}>₹{totalAmount}</span>
-        </div>
-
-        <div style={{ padding: '1rem', background: '#FFF' }}>
-          <img 
-            src="/assets/qr-dWM8w90D.webp" 
-            alt="Payment QR Code" 
-            style={{ width: '200px', height: '200px', display: 'block' }} 
-            onError={(e) => {
-              e.target.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=AcumenIT-Payment-Placeholder'
+              transition: 'all 0.2s ease',
+              width: '100%',
             }}
-          />
-        </div>
-
-        <div style={{ textAlign: 'center' }}>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#F5F5F0', marginBottom: '0.5rem' }}>
-            SCAN QR TO PAY ₹{totalAmount}
-          </p>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: '#555' }}>
-            FOR QUERIES CONTACT: 8688569105
-          </p>
-        </div>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-        <FormField id="transactionId" label="Transaction ID" error={errors.transactionId} required>
-          <input
-            {...register('transactionId', { required: 'Required' })}
-            placeholder="ENTER UTR / TXN ID"
-            style={inputStyle(errors.transactionId)}
-            onFocus={e => e.target.style.borderColor = '#FFD600'}
-            onBlur={e => e.target.style.borderColor = errors.transactionId ? '#FF6B35' : '#3D3D3D'}
-          />
-        </FormField>
-
-        <FormField id="paymentScreenshotLink" label="Screenshot Drive Link" error={errors.paymentScreenshotLink} required>
-          <input
-            {...register('paymentScreenshotLink', { required: 'Required' })}
-            placeholder="PASTE GOOGLE DRIVE LINK"
-            style={inputStyle(errors.paymentScreenshotLink)}
-            onFocus={e => e.target.style.borderColor = '#FFD600'}
-            onBlur={e => e.target.style.borderColor = errors.paymentScreenshotLink ? '#FF6B35' : '#3D3D3D'}
-          />
-          <p style={{ fontSize: '0.6rem', color: '#444', marginTop: '0.5rem', fontFamily: 'var(--font-mono)' }}>
-            // Ensure link is public (Anyone with the link can view)
-          </p>
-        </FormField>
-      </div>
-    </div>
-  )}
-
-  {/* Submit */}
-  <button
-    type="submit"
-    disabled={isSubmitting}
-    style={{
-      background: isSubmitting ? '#333' : '#FFD600',
-      color: isSubmitting ? '#888' : '#000',
-      padding: '1.25rem',
-      border: 'none',
-      cursor: isSubmitting ? 'not-allowed' : 'pointer',
-      fontFamily: 'var(--font-mono)',
-      fontWeight: 700,
-      fontSize: '0.85rem',
-      letterSpacing: '0.15em',
-      textTransform: 'uppercase',
-      transition: 'all 0.2s ease',
-      width: '100%',
-    }}
-    onMouseEnter={e => !isSubmitting && (e.target.style.background = '#ffe033')}
-    onMouseLeave={e => !isSubmitting && (e.target.style.background = '#FFD600')}
-  >
-    {isSubmitting ? '// PROCESSING...' : 'COMPLETE REGISTRATION →'}
-  </button>
+            onMouseEnter={e => !isSubmitting && (e.target.style.background = '#ffe033')}
+            onMouseLeave={e => !isSubmitting && (e.target.style.background = '#FFD600')}
+          >
+            {isSubmitting ? '// PROCESSING...' : 'COMPLETE REGISTRATION →'}
+          </button>
         </form>
 
         <style>{`

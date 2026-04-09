@@ -8,31 +8,48 @@ import TensortonicMesh from '../components/TensortonicMesh'
 
 
 const mentors = [
-  { name: 'Dr. S. V. Ramana', role: 'Principal', tag: 'PRINCIPAL', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=533&fit=crop' },
-  { name: 'Dr. K. Ram Mohan Rao', role: 'HOD, Dept. of IT', tag: 'DEPT HEAD', image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400&h=533&fit=crop' },
-  { name: 'Mr. Nelaturi David Raju', role: 'Faculty Coordinator', tag: 'COORDINATOR', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=533&fit=crop' },
-  { name: 'Mr. Srinivas Chakravarthy', role: 'Faculty Coordinator', tag: 'COORDINATOR', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=533&fit=crop' },
+  { name: 'Dr. S. V. Ramana', role: 'Principal', image: '/faculty/principal.webp' },
+  { name: 'Dr. K. Ram Mohan Rao', role: 'HOD, Dept. of IT', image: '/faculty/hod.webp' },
+  { name: 'Ms. Aruna', role: 'Faculty Coordinator', image: '/faculty/aruna.jpeg' },
 ]
 
 const coordinators = [
-  { name: 'Hima Atluri', role: 'Overall Acumen Coordinator', tag: 'LEAD', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=533&fit=crop' },
-  { name: 'Pavan Kalyan', role: 'Acumen IT Coordinator', tag: 'IT LEAD', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=533&fit=crop' },
-  { name: 'Hrishitha', role: 'Coordinator', tag: 'COORD', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=533&fit=crop' },
-  { name: 'Bhavana', role: 'Coordinator', tag: 'COORD', image: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=400&h=533&fit=crop' },
+  { name: 'Raja Sheshu', role: 'Overall Acumen IT Coordinator - Head of Marketing & Logistics', image: '/Acumen Coordinators/Shesh.jpg' },
+  { name: 'Vaishnavi', role: 'Overall Coordinator - Head of Design & Technology', image: '/Acumen Coordinators/Vaishnavi.JPG' },
+  { name: 'Sharath', role: 'Overall Coordinator - Head of Logistics', image: '/Acumen Coordinators/Sharath.jpg' },
+  { name: 'Saakshi', role: 'Overall Coordinator - Head of Marketing', image: '/Acumen Coordinators/Saakshi.jpg' },
+  { name: 'Aashritha', role: 'Overall Coordinator - Head of Marketing', image: '/Acumen Coordinators/Aashritha.jpg' },
+  { name: 'Goutham Siddharth', role: 'Creative Head', image: '/Acumen Coordinators/Goutham.jpg' },
+  { name: 'Harika', role: 'Overall Coordinator', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=533&fit=crop' },
+  { name: 'Nithya', role: 'Overall Coordinator', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=533&fit=crop' },
+  { name: 'Jai Chandra', role: 'Technology Lead', image: '/Acumen Coordinators/Jai Chandra.jpg' },
+  { name: 'Sirivennela', role: 'Design Lead', image: '/Acumen Coordinators/Sirivennela.jpg' },
+  { name: 'Kavya', role: 'Design Lead', image: '/Acumen Coordinators/Kavya.jpg' },
+  { name: 'Vishnu', role: 'Marketing Lead', image: '/Acumen Coordinators/Vishnu.jpg' },
+  { name: 'Shashank', role: 'Logistics Lead', image: '/Acumen Coordinators/Shashank.jpg' },
+  { name: 'Vasist', role: 'Logistics Lead', image: '/Acumen Coordinators/Vasist.jpg' },
+  { name: 'Viveak', role: 'Dev Lead', image: '/Acumen Coordinators/Viveak.jpg' },
+  { name: 'Vibhas', role: 'Dev Lead', image: '/Acumen Coordinators/Vibhas.jpg' },
+  { name: 'Yashwanth', role: 'Finance Lead', image: '/Acumen Coordinators/Yashwanth.jpg' },
 ]
 
 const sponsors = [
-  { id: 'TECH_01', name: 'Nvidia', image: 'https://www.acumenit.in/assets/sponsor2-D_vlKJAr.webp' },
-  { id: 'CLOUD_02', name: 'Google Cloud', image: 'https://www.acumenit.in/assets/image2-BwihIBln.webp' },
-  { id: 'SEC_03', name: 'CrowdStrike', image: 'https://www.acumenit.in/assets/image-10PnZB6d.webp' },
+  { name: 'HP', image: '/Sponsors/HP.jpeg' },
+  { name: 'Rinno', image: '/Sponsors/Rinno.png' },
+  { name: 'Sapphire', image: '/Sponsors/Sapphire.png' },
 ]
 
 const pastFestImages = [
-  { image: 'https://picsum.photos/seed/hackathon/900/900', link: '/events', title: 'HACKATHONS', description: '24-hour intense coding sprints and development.' },
-  { image: 'https://picsum.photos/seed/expo/900/900', link: '/events', title: 'TECH EXPO', description: 'Showcasing brilliant student hardware and software.' },
-  { image: 'https://picsum.photos/seed/robotics/900/900', link: '/events', title: 'ROBOTICS', description: 'Autonomous arenas and intense bot battles.' },
-  { image: 'https://picsum.photos/seed/workshop/900/900', link: '/events', title: 'WORKSHOPS', description: 'Learning from leading industry experts.' },
-  { image: 'https://picsum.photos/seed/gaming/900/900', link: '/events', title: 'GAMING ZONE', description: 'E-Sports, LAN parties, and casual gaming.' },
+  { image: '/Acumen gallery/DSC03964.JPG' },
+  { image: '/Acumen gallery/DSC03968.JPG' },
+  { image: '/Acumen gallery/DSC03977.JPG' },
+  { image: '/Acumen gallery/DSC03987.JPG' },
+  { image: '/Acumen gallery/DSC03993.JPG' },
+  { image: '/Acumen gallery/DSC03994.JPG' },
+  { image: '/Acumen gallery/DSC03995.JPG' },
+  { image: '/Acumen gallery/DSC04038.JPG' },
+  { image: '/Acumen gallery/DSC04235.JPG' },
+  { image: '/Acumen gallery/DSC04397.JPG' },
 ]
 
 // ─── Sub-Components ───────────────────────────────────────────────────────────
@@ -117,22 +134,6 @@ const TeamCard = ({ person }) => (
         }} 
       />
       
-      {/* Role Tag Overlay */}
-      <div style={{
-        position: 'absolute',
-        bottom: '0',
-        left: '0',
-        background: '#FFD600',
-        color: '#000',
-        fontFamily: 'var(--font-mono)',
-        fontSize: '0.6rem',
-        fontWeight: 900,
-        padding: '2px 8px',
-        textTransform: 'uppercase',
-        letterSpacing: '0.1em'
-      }}>
-        {person.tag}
-      </div>
     </div>
 
     {/* Metadata */}
@@ -240,27 +241,6 @@ const SponsorCard = ({ sponsor, tier }) => (
           transition: 'transform 0.5s ease',
         }} 
       />
-    </div>
-
-    {/* Bottom Metadata Bar */}
-    <div style={{ 
-      position: 'absolute',
-      bottom: '10px',
-      left: '15px',
-      right: '15px',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      borderTop: '1px solid rgba(255,255,255,0.05)',
-      paddingTop: '8px'
-    }}>
-      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', color: '#333' }}>
-        SYS_PRTNR_ID_{sponsor.id}
-      </span>
-      <div style={{ display: 'flex', gap: '4px' }}>
-         <div style={{ width: '3px', height: '3px', background: '#FFD600', borderRadius: '50%' }} />
-         <div style={{ width: '3px', height: '3px', background: '#333', borderRadius: '50%' }} />
-      </div>
     </div>
   </div>
 );
@@ -467,7 +447,7 @@ export default function Home() {
   }}>
     {sponsors.map((sp) => (
       <div 
-        key={sp.id} 
+        key={sp.name} 
         style={{
           background: 'rgba(255, 255, 255, 0.02)',
           border: '1px solid #1a1a1a',

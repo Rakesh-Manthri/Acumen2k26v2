@@ -5,6 +5,8 @@ export default function Admin() {
   const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterEvent, setFilterEvent] = useState('ALL');
   const [isAuthenticated, setIsAuthenticated] = useState(
     sessionStorage.getItem('admin_auth') === 'true'
   );
@@ -12,7 +14,7 @@ export default function Admin() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      fetch('http://localhost:5000/api/registrations')
+      fetch('http://192.168.0.104:5000/api/registrations')
         .then(res => res.json())
         .then(data => {
           if (data.success) {
@@ -29,6 +31,19 @@ export default function Admin() {
     }
   }, [isAuthenticated]);
 
+  const uniqueEvents = ['ALL', ...new Set(registrations.flatMap(r => r.selectedEvents))];
+
+  const filteredRegistrations = registrations.filter(reg => {
+    const matchesSearch =
+      reg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reg.rollNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reg.college.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesEvent = filterEvent === 'ALL' || reg.selectedEvents.includes(filterEvent);
+
+    return matchesSearch && matchesEvent;
+  });
+
   const handleLogin = (e) => {
     e.preventDefault();
     if (loginData.username === 'Acumen-IT-2k26' && loginData.password === 'Acumen@it') {
@@ -41,11 +56,11 @@ export default function Admin() {
 
   if (!isAuthenticated) {
     return (
-      <main style={{ 
-        minHeight: '100vh', 
-        background: '#0A0A0A', 
-        display: 'flex', 
-        alignItems: 'center', 
+      <main style={{
+        minHeight: '100vh',
+        background: '#0A0A0A',
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'center',
         padding: '2rem'
       }}>
@@ -56,21 +71,21 @@ export default function Admin() {
           width: '100%',
           maxWidth: '400px',
         }}>
-          <h1 style={{ 
-            fontFamily: 'var(--font-display)', 
-            color: '#FFF', 
-            fontSize: '1.5rem', 
+          <h1 style={{
+            fontFamily: 'var(--font-display)',
+            color: '#FFF',
+            fontSize: '1.5rem',
             marginBottom: '2rem',
             textAlign: 'center',
             textTransform: 'uppercase'
           }}>ADMIN GATEWAY</h1>
-          
+
           <div style={{ marginBottom: '1.5rem' }}>
             <label style={{ color: '#555', fontSize: '0.65rem', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: '0.5rem' }}>USERNAME</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={loginData.username}
-              onChange={e => setLoginData({...loginData, username: e.target.value})}
+              onChange={e => setLoginData({ ...loginData, username: e.target.value })}
               style={{
                 width: '100%',
                 background: '#111',
@@ -85,10 +100,10 @@ export default function Admin() {
 
           <div style={{ marginBottom: '2rem' }}>
             <label style={{ color: '#555', fontSize: '0.65rem', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: '0.5rem' }}>PASSWORD</label>
-            <input 
-              type="password" 
+            <input
+              type="password"
               value={loginData.password}
-              onChange={e => setLoginData({...loginData, password: e.target.value})}
+              onChange={e => setLoginData({ ...loginData, password: e.target.value })}
               style={{
                 width: '100%',
                 background: '#111',
@@ -117,10 +132,10 @@ export default function Admin() {
   }
 
   return (
-    <main style={{ 
-      minHeight: '100vh', 
-      background: '#0A0A0A', 
-      color: '#FFF', 
+    <main style={{
+      minHeight: '100vh',
+      background: '#0A0A0A',
+      color: '#FFF',
       padding: '8rem 2rem 4rem',
       fontFamily: 'var(--font-mono)'
     }}>
@@ -130,12 +145,87 @@ export default function Admin() {
             <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', textTransform: 'uppercase' }}>
               REGISTRATION_DATABASE
             </h1>
-            <p style={{ color: '#FFD600', fontSize: '0.8rem' }}>TOTAL RECORDS: {registrations.length}</p>
+            <p style={{ color: '#FFD600', fontSize: '0.8rem' }}>
+              SHOWING: {filteredRegistrations.length} / TOTAL: {registrations.length}
+            </p>
+            <button
+              onClick={() => window.print()}
+              className="hide-on-print"
+              style={{
+                marginTop: '1rem',
+                background: 'rgba(255, 214, 0, 0.1)',
+                border: '1px solid #FFD600',
+                color: '#FFD600',
+                padding: '0.5rem 1rem',
+                fontSize: '0.7rem',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-mono)',
+                textTransform: 'uppercase'
+              }}
+            >
+              DOWNLOAD REPORT (PDF)
+            </button>
           </div>
-          <Link to="/" style={{ color: '#888', textDecoration: 'none', border: '1px solid #333', padding: '0.5rem 1rem' }}>
+          <Link
+            to="/"
+            className="hide-on-print"
+            style={{ color: '#888', textDecoration: 'none', border: '1px solid #333', padding: '0.5rem 1rem' }}
+          >
             BACK TO HOME
           </Link>
-        </div>          
+        </div>
+
+        {/* Search and Filter UI */}
+        <div className="hide-on-print" style={{
+          display: 'flex',
+          gap: '1rem',
+          marginBottom: '2rem',
+          flexWrap: 'wrap',
+          background: '#0d0d0d',
+          padding: '1.5rem',
+          border: '1px solid #1a1a1a'
+        }}>
+          <div style={{ flex: 2, minWidth: '280px' }}>
+            <label style={{ fontSize: '0.6rem', color: '#555', display: 'block', marginBottom: '0.5rem' }}>SEARCH_PARTICIPANTS (NAME/ROLL/COLLEGE)</label>
+            <input
+              type="text"
+              placeholder="TYPE TO SEARCH..."
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              style={{
+                width: '100%',
+                background: '#111',
+                border: '1px solid #333',
+                padding: '0.8rem',
+                color: '#FFF',
+                fontFamily: 'var(--font-mono)',
+                outline: 'none'
+              }}
+            />
+          </div>
+          <div style={{ flex: 1, minWidth: '200px' }}>
+            <label style={{ fontSize: '0.6rem', color: '#555', display: 'block', marginBottom: '0.5rem' }}>FILTER_BY_EVENT</label>
+            <select
+              value={filterEvent}
+              onChange={e => setFilterEvent(e.target.value)}
+              style={{
+                width: '100%',
+                background: '#111',
+                border: '1px solid #333',
+                padding: '0.8rem',
+                color: '#FFF',
+                fontFamily: 'var(--font-mono)',
+                outline: 'none',
+                cursor: 'pointer'
+              }}
+            >
+              {uniqueEvents.map(ev => (
+                <option key={ev} value={ev}>{ev}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
         {loading ? (
           <p> LOADING_DATA...</p>
         ) : error ? (
@@ -155,7 +245,7 @@ export default function Admin() {
                 </tr>
               </thead>
               <tbody>
-                {registrations.map((reg) => (
+                {filteredRegistrations.map((reg) => (
                   <tr key={reg._id} style={{ borderBottom: '1px solid #1a1a1a', transition: 'background 0.2s' }}>
                     <td style={{ padding: '1rem', color: '#555' }}>
                       {new Date(reg.registrationDate).toLocaleDateString()}
@@ -166,9 +256,9 @@ export default function Admin() {
                     <td style={{ padding: '1rem' }}>
                       <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
                         {reg.selectedEvents.map((ev, i) => (
-                          <span key={i} style={{ 
-                            background: 'rgba(255,255,255,0.05)', 
-                            padding: '2px 6px', 
+                          <span key={i} style={{
+                            background: 'rgba(255,255,255,0.05)',
+                            padding: '2px 6px',
                             fontSize: '0.65rem',
                             border: '1px solid #333'
                           }}>
@@ -181,9 +271,9 @@ export default function Admin() {
                       {reg.transactionId}
                     </td>
                     <td style={{ padding: '1rem' }}>
-                      <a 
-                        href={reg.paymentScreenshotLink} 
-                        target="_blank" 
+                      <a
+                        href={reg.paymentScreenshotLink}
+                        target="_blank"
                         rel="noopener noreferrer"
                         style={{ color: '#FFD600', fontSize: '0.7rem', textDecoration: 'none', borderBottom: '1px dotted #FFD600' }}
                       >
@@ -196,6 +286,24 @@ export default function Admin() {
             </table>
           </div>
         )}
+
+        <style>{`
+          @media print {
+            .hide-on-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            main { padding: 0 !important; margin-top: 0 !important; }
+            table { border: 1px solid #000 !important; width: 100% !important; border-collapse: collapse !important; }
+            th, td { 
+              color: black !important; 
+              border: 1px solid #000 !important; 
+              padding: 8px !important;
+              text-align: left !important;
+            }
+            h1 { color: black !important; font-size: 20pt !important; margin-bottom: 20px !important; }
+            thead { display: table-header-group; }
+            tr { page-break-inside: avoid; }
+          }
+        `}</style>
       </div>
     </main>
   );
