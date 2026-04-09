@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Events from './pages/Events'
+import Admin from './pages/Admin'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin" element={<Admin />} />
         {/* Alias routes for nav links */}
         <Route path="/schedule" element={<Events />} />
       </Routes>
